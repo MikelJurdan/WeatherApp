@@ -1,5 +1,49 @@
 <ion-header [translucent]="true">
 
 <ion-content [fullscreen]="true">
- 
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Předpověď počasí</ion-title>
+          </ion-toolbar>
+          <ion-toolbar>
+        <ion-searchbar></ion-searchbar>
+      </ion-toolbar>
+    </ion-header>
+
+  <ion-card>
+    <ion-item lines="none">
+      <p>Dnešní datum</p>
+      <ion-label slot="end">{{todayDate | date: "EEE dd MMM"}}</ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <span>
+      {{ weatherTemp?.temp | number:'1.1-1' }}°C
+      </span>
+      <img slot="end" [src]=weatherIcon>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="location"></ion-icon>
+      <span>{{cityName}}</span>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <span>Maximální Teplota</span>
+      <span slot="end">{{weatherTemp.temp_max | number:'1.1-1' }}°C</span>
+    </ion-item>
+
+    <ion-item>
+      <span>Minimální Teplota</span>
+      <span slot="end">{{weatherTemp.temp_min | number:'1.1-1' }}°C</span>
+    </ion-item>
+
+     <ion-item>
+      <span>Vlhkost</span>
+      <span slot="end">{{weatherTemp.humidity | number:'1.0-0' }}%</span>
+    </ion-item>
+  </ion-card>
+
 </ion-content>
