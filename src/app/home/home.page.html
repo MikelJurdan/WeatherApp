@@ -1,49 +1,56 @@
 <ion-header [translucent]="true">
 
 <ion-content [fullscreen]="true">
+  <div class="searchbarStyle">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Předpověď počasí</ion-title>
-          </ion-toolbar>
-          <ion-toolbar>
-        <ion-searchbar></ion-searchbar>
+        <img slot="start" [src]="icon" class="iconStyle">
+        <ion-title style="font-weight: 400;">Počasí</ion-title>
+          </ion-toolbar><ion-toolbar>
+        <ion-searchbar class="searchbarStyle" [(ngModel)]="cityName" (ionChange)="loadData()" placeholder="Hledat město"></ion-searchbar>
       </ion-toolbar>
     </ion-header>
+  </div>
 
-  <ion-card>
-    <ion-item lines="none">
-      <p>Dnešní datum</p>
-      <ion-label slot="end">{{todayDate | date: "EEE dd MMM"}}</ion-label>
-    </ion-item>
+  <div *ngIf="!loading">
+      <ion-card class="cardStyle">
+      <ion-item lines="none">
+        <p>Dnešní datum</p>
+        <ion-label slot="end">{{todayDate | date: "EEE dd MMM"}}</ion-label>
+      </ion-item>
 
-    <ion-item lines="none">
-      <span>
-      {{ weatherTemp?.temp | number:'1.1-1' }}°C
-      </span>
-      <img slot="end" [src]=weatherIcon>
-    </ion-item>
+      <ion-item lines="none">
+        <span>
+        {{(weatherTemp?.temp - 273.15) | number:'1.1-1' }}°C
+        </span>
+        <img slot="end" [src]=weatherIcon>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="location"></ion-icon>
-      <span>{{cityName}}</span>
-    </ion-item>
-  </ion-card>
+      <ion-item>
+        <ion-icon name="location"></ion-icon>
+        <span>{{name}}</span>
+      </ion-item>
+    </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <span>Maximální Teplota</span>
-      <span slot="end">{{weatherTemp.temp_max | number:'1.1-1' }}°C</span>
-    </ion-item>
+      <ion-card class="cardStyle">
+      <ion-item>
+        <span>Maximální teplota</span>
+        <span slot="end">{{(weatherTemp.temp_max - 273.15) | number:'1.1-1' }}°C</span>
+      </ion-item>
 
-    <ion-item>
-      <span>Minimální Teplota</span>
-      <span slot="end">{{weatherTemp.temp_min | number:'1.1-1' }}°C</span>
-    </ion-item>
+      <ion-item>
+        <span>Minimální teplota</span>
+        <span slot="end">{{(weatherTemp.temp_min - 273.15) | number:'1.1-1' }}°C</span>
+      </ion-item>
 
-     <ion-item>
-      <span>Vlhkost</span>
-      <span slot="end">{{weatherTemp.humidity | number:'1.0-0' }}%</span>
-    </ion-item>
-  </ion-card>
+      <ion-item>
+        <span>Vlhkost</span>
+        <span slot="end">{{weatherTemp.humidity | number:'1.0-0' }}%</span>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div *ngIf="loading">
+  </div>
 
 </ion-content>
