@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IonTabBar, IonTabs, IonLabel, IonTabButton, IonIcon } from "@ionic/angular/standalone";
 import { IonicModule } from "@ionic/angular";
 
 @Component({

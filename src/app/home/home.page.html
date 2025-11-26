@@ -29,6 +29,7 @@
       <ion-item>
         <ion-icon name="location"></ion-icon>
         <span>{{name}}</span>
+        <ion-icon slot="end" name="heart" [color]="isFavorite ? 'danger' : ''" (click)="toggleFavorite()"></ion-icon>
       </ion-item>
     </ion-card>
 

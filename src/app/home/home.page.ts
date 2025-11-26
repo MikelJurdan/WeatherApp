@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FavoritesService } from '../services/favorites.service';
 import { environment } from 'src/environments/environment.prod';
+import { ActivatedRoute } from '@angular/router';
 
 const API_URL = environment.API_URL;
 const API_KEY = environment.API_KEY;
@@ -21,9 +23,15 @@ export class HomePage {
   name = ""
   loading = true
   icon = 'assets/icon/icon.png'
+  isFavorite = false;
 
-  constructor(public httpClient:HttpClient) {
-    //this.loadData()
+  constructor(public httpClient: HttpClient, private favoritesService: FavoritesService, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      if (params['city']) {
+        this.cityName = params['city'];
+        this.loadData();
+      }
+    });
   }
 
   loadData(){
@@ -38,6 +46,20 @@ export class HomePage {
       console.log(this.weatherDetails)
       this.weatherIcon = `https://openweathermap.org/img/wn/${this.weatherDetails.icon}@4x.png`
       this.loading = false;
+      this.checkFavorite();
     })
+  }
+
+  checkFavorite() {
+    this.isFavorite = this.favoritesService.isFavorite(this.name);
+  }
+
+  toggleFavorite() {
+    if (this.isFavorite) {
+      this.favoritesService.removeFavorite(this.name);
+    } else {
+      this.favoritesService.addFavorite(this.name);
+    }
+    this.checkFavorite();
   }
 }
