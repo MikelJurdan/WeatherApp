@@ -1,14 +1,12 @@
-<ion-header [translucent]="true">
-
-<ion-content [fullscreen]="true">
   <div class="favouriteStyle">
-    <ion-header>
+    <ion-header [translucent]="true">
       <ion-toolbar>
         <ion-title style="font-weight: 400;">Oblíbené Města</ion-title>
       </ion-toolbar>
     </ion-header>
   </div>
 
+<ion-content [fullscreen]="true">
   <div class="listStyle">
     <ion-list>
       <ion-item *ngFor="let city of favoriteCities" (click)="displayCity(city)">

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonList, IonItem } from '@ionic/angular/standalone';
 import { IonicModule } from "@ionic/angular";
 import { CommonModule, NgFor } from '@angular/common';
 import { FavoritesService } from '../services/favorites.service';
@@ -10,7 +9,7 @@ import { FavoritesService } from '../services/favorites.service';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonicModule, CommonModule, IonList],
+  imports: [IonicModule, CommonModule],
 })
 export class Tab1Page {
 
@@ -20,8 +19,16 @@ export class Tab1Page {
     this.favoriteCities = this.favoritesService.getFavorites();
   }
 
+  ionViewWillEnter() {
+    this.refreshFavorites();
+  }
+
   removeCity(city: string) {
     this.favoritesService.removeFavorite(city);
+    this.refreshFavorites();
+  }
+
+  refreshFavorites() {
     this.favoriteCities = this.favoritesService.getFavorites();
   }
 
